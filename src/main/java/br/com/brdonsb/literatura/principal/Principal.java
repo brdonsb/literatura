@@ -9,7 +9,8 @@ public class Principal {
         var opcao = -1;
         while (opcao!= 0) {
             var menu = """
-                    ********** Literatura **********                    
+                    ********** Literatura **********
+
                     Escolha digite a opção desejada
 
                     1- Buscar livro pelo título
@@ -29,23 +30,31 @@ public class Principal {
                     System.out.println("Saindo ...");
                     break;
                 case 1:
-                    System.out.println("Opção Buscar livro pelo título");
+                    buscarLivroPorTitulo();
                     break;
                 case 2:
-                    System.out.println("Opção Listar livros registrados");
+                    listarAutoresRegistrados();
                 break;
                 case 3:
-                    System.out.println("Opção Lista autores registrados");
+                    listarAutoresRegistrados();
                 break;
                 case 4:
-                    System.out.println("Opção Listar autores vivos em um determinado ano");
+                    listarAutoresVivosNoAno();
                 break;
                 case 5:
-                    System.out.println("Opção Listar livros em um determinado idioma");
+                    listarLivrosPorIdioma();
                     break;
                 default:
                     System.out.println("Opção inválida!");
             }
         }
+    }
+    private void buscarLivroPorTitulo() {
+    }
+    private void listarAutoresRegistrados() {
+    }
+    private void listarAutoresVivosNoAno() {
+    }
+    private void listarLivrosPorIdioma() {
     }
 }
