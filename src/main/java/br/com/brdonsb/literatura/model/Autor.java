@@ -25,4 +25,60 @@ public class Autor {
     private int anoMorte;
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     private List<Livro> livros = new ArrayList<>();
+
+    public Autor(){}
+
+    public Autor(DadosAutor dadosAutor){
+        this.nome = dadosAutor.nome();
+        this.anoNascimento = dadosAutor.anoNascimento();
+        this.anoMorte = dadosAutor.anoMorte();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getAnoNascimento() {
+        return anoNascimento;
+    }
+
+    public void setAnoNascimento(int anoNascimento) {
+        this.anoNascimento = anoNascimento;
+    }
+
+    public int getAnoMorte() {
+        return anoMorte;
+    }
+
+    public void setAnoMorte(int anoMorte) {
+        this.anoMorte = anoMorte;
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Nome = " + nome +
+                ", Ano de Nascimento = " + anoNascimento +
+                ", Ano de Morte = " + anoMorte;
+    }
 }
