@@ -64,10 +64,11 @@ public class Livro {
     @Override
     public String toString() {
         return
-                "Dados do livro:"+
-                "\nTítulo = " + titulo +
-                ", \nIdioma = " + idioma +
-                ", \nNumero de downloads = " + numeroDownloads +
-                ", \nDados do autor: \n" + autor;
+            "********** LIVRO **********" +
+            "\nTítulo: " + getTitulo() +
+            "\nAutor: " + getAutor().getNome() +
+            "\nIdioma: " + getIdioma() +
+            "\nNúmero de downloads: " + getNumeroDownloads() +
+            "\n***************************\n";
     }
 }

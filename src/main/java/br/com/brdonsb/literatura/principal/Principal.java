@@ -76,13 +76,7 @@ public class Principal {
         if (livro == null) {
             System.out.println("livro nao encontrado");            
         }else{
-            System.out.printf("""
-                ********** LIVRO **********
-                Título = %s
-                Autor = %s
-                Idioma = %s
-                Número de downloads = %d
-                %n    """, livro.getTitulo(), livro.getAutor().getNome(), livro.getIdioma(), livro.getNumeroDownloads());            
+            System.out.println(livro);
             guardarDadosDB(livro);
         }
     }
