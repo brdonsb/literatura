@@ -142,5 +142,9 @@ public class Principal {
         autores.forEach(System.out::println);        
     }
     private void listarLivrosPorIdioma() {
+        System.out.println("Digite o idioma");
+        String idioma = leitura.nextLine();
+        List<Livro> livros = repositorio.buscarLivrosPorIdioma(idioma);
+        livros.forEach(System.out::println);        
     }
 }
