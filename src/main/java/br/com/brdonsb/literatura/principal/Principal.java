@@ -136,6 +136,10 @@ public class Principal {
         autores.forEach(System.out::println);
     }
     private void listarAutoresVivosNoAno() {
+        System.out.println("Digite o ano");
+        int ano = leitura.nextInt();
+        List<Autor> autores = repositorio.buscarAutorVivoNoAno(ano);
+        autores.forEach(System.out::println);        
     }
     private void listarLivrosPorIdioma() {
     }
