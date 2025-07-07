@@ -1,5 +1,6 @@
 package br.com.brdonsb.literatura.principal;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -54,7 +55,7 @@ public class Principal {
                     buscarLivroPorTitulo();
                     break;
                 case 2:
-                    listarAutoresRegistrados();
+                    listarLivrosRegistrados();
                 break;
                 case 3:
                     listarAutoresRegistrados();
@@ -75,11 +76,16 @@ public class Principal {
         if (livro == null) {
             System.out.println("livro nao encontrado");            
         }else{
-            System.out.println("Imprime dados do livro: " + livro);
+            System.out.printf("""
+                ********** LIVRO **********
+                Título = %s
+                Autor = %s
+                Idioma = %s
+                Número de downloads = %d
+                %n    """, livro.getTitulo(), livro.getAutor().getNome(), livro.getIdioma(), livro.getNumeroDownloads());            
             guardarDadosDB(livro);
         }
     }
-
     private void guardarDadosDB(Livro livro){
         Autor buscaAutorCadastrado = repositorio.buscarAutorPorNome(livro.getAutor().getNome());
         if (buscaAutorCadastrado == null) {
@@ -94,9 +100,8 @@ public class Principal {
             //livro já cadastrado
         }
     }
-
     private Livro buscarLivroNaAPI(){
-        System.out.println("Digite o nome do livro");
+        System.out.println("Insira o nome do livro que você deseja procurar");
         var nomeLivro = leitura.nextLine();
         var json = consumo.obterDados(ENDERECO + nomeLivro.replace(" ", "%20"));
         try {
@@ -122,7 +127,13 @@ public class Principal {
             throw new RuntimeException(e);
         }
     }
+    private void listarLivrosRegistrados(){
+        List<Livro> livros = repositorio.findAll();
+        livros.forEach(System.out::println);
+    }
     private void listarAutoresRegistrados() {
+        List<Autor> autores = repositorio.buscarAutorCadastrado();
+        autores.forEach(System.out::println);
     }
     private void listarAutoresVivosNoAno() {
     }

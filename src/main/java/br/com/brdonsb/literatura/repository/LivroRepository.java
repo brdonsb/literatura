@@ -1,5 +1,7 @@
 package br.com.brdonsb.literatura.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +23,8 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
     @Transactional
     @Query(value = "INSERT INTO livros (idioma, numero_downloads, titulo, autor_id) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
     void inserirLivro(String idioma, Long numeroDownloads, String titulo, Long autorId);
+
+    @Query("SELECT a FROM Autor a")
+    List<Autor> buscarAutorCadastrado();
+
 }
