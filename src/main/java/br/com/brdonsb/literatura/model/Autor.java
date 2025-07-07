@@ -2,6 +2,7 @@ package br.com.brdonsb.literatura.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -76,9 +77,14 @@ public class Autor {
 
     @Override
     public String toString() {
+        String titulos = livros.stream()
+                           .map(Livro::getTitulo)
+                           .collect(Collectors.joining(" - ", "[", "]"));
+
         return
-                "Nome = " + nome +
-                ", Ano de Nascimento = " + anoNascimento +
-                ", Ano de Morte = " + anoMorte;
+                "\nNome: " + nome +
+                "\nAno de Nascimento: " + anoNascimento +
+                "\nAno de Morte: " + anoMorte +
+                "\nLivros: " + titulos;
     }
 }

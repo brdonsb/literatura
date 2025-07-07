@@ -130,15 +130,27 @@ public class Principal {
         autores.forEach(System.out::println);
     }
     private void listarAutoresVivosNoAno() {
-        System.out.println("Digite o ano");
+        System.out.println("Insira o ano que deseja pesquisar");
         int ano = leitura.nextInt();
         List<Autor> autores = repositorio.buscarAutorVivoNoAno(ano);
         autores.forEach(System.out::println);        
     }
     private void listarLivrosPorIdioma() {
-        System.out.println("Digite o idioma");
+        System.out.println(
+                """
+                Digite o idioma para realizar a busca:
+                es - espanhol
+                en - inglês
+                fr - francês
+                pt - portugues
+                """
+        );
         String idioma = leitura.nextLine();
         List<Livro> livros = repositorio.buscarLivrosPorIdioma(idioma);
-        livros.forEach(System.out::println);        
+        if (livros.isEmpty()) {
+            System.out.println("Não existem livros nesse idioma no banco de dados");
+        }else{
+            livros.forEach(System.out::println);        
+        }
     }
 }
