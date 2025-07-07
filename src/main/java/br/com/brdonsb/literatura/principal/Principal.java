@@ -71,6 +71,31 @@ public class Principal {
         }
     }
     private void buscarLivroPorTitulo() {
+        Livro livro = buscarLivroNaAPI();
+        if (livro == null) {
+            System.out.println("livro nao encontrado");            
+        }else{
+            System.out.println("Imprime dados do livro: " + livro);
+            guardarDadosDB(livro);
+        }
+    }
+
+    private void guardarDadosDB(Livro livro){
+        Autor buscaAutorCadastrado = repositorio.buscarAutorPorNome(livro.getAutor().getNome());
+        if (buscaAutorCadastrado == null) {
+            repositorio.save(livro);
+            return;           
+        }
+        Livro buscaLivroCadastrado = repositorio.buscarLivroPorNomeEAutor(livro.getTitulo(), buscaAutorCadastrado.getId());
+        if (buscaLivroCadastrado == null) {
+            repositorio.inserirLivro(livro.getIdioma(), livro.getNumeroDownloads(), livro.getTitulo(), buscaAutorCadastrado.getId());
+
+        }else{
+            //livro já cadastrado
+        }
+    }
+
+    private Livro buscarLivroNaAPI(){
         System.out.println("Digite o nome do livro");
         var nomeLivro = leitura.nextLine();
         var json = consumo.obterDados(ENDERECO + nomeLivro.replace(" ", "%20"));
@@ -78,6 +103,9 @@ public class Principal {
             JsonNode node = mapper.readTree(json);
             json = node.get("results").toString();
             json = json.substring(1, json.length() - 1);
+            if (json == "") {
+                return null;
+            }
             node = mapper.readTree(json);
             String jsonTitulo = node.get("title").toString(); 
             jsonTitulo = jsonTitulo.substring(1, jsonTitulo.length() - 1);
@@ -89,16 +117,11 @@ public class Principal {
             DadosAutor dados = conversor.obterDados(jsonAutor, DadosAutor.class);
             Autor autor = new Autor(dados);
             Livro livro = new Livro(jsonTitulo, jsonIdioma, Long.parseLong(jsonNumeroDownloads), autor);
-            System.out.println("Imprime dados do livro: " + livro);
-            repositorio.save(livro);
-
-
-
+            return livro;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
-
     private void listarAutoresRegistrados() {
     }
     private void listarAutoresVivosNoAno() {
